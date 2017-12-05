@@ -17,6 +17,9 @@ switch ($_POST['action']) {
         die;
 }
 
+/**
+ * Mark a task as finished
+ */
 function over(){
     $id=$_POST['id'];
     Database::exec('update tasks set done=1 where id='.$id);
@@ -24,6 +27,9 @@ function over(){
     die;
 }
 
+/**
+ * Delete a task
+ */
 function delete(){
     $id=$_POST['id'];
     Database::exec('delete from tasks where id='.$id);
@@ -31,6 +37,9 @@ function delete(){
     die;
 }
 
+/**
+ * Add a task
+ */
 function add()
 {
     $message = htmlspecialchars($_POST['message']);

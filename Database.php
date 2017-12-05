@@ -9,6 +9,9 @@ class Database
     private static $_connection;
     private static $_instance;
 
+    /**
+     * Initiate the database connexion
+     */
     private function __construct()
     {
         try {
@@ -19,6 +22,13 @@ class Database
         static::$_connection->exec('SET NAMES \'utf8\'');
     }
 
+    /**
+     * Called before every request to verify if the database is ready before performing a request.
+     * @param $name
+     * @param $arguments
+     * @return mixed
+     * @throws Exception
+     */
     public static function __callStatic($name, $arguments){
         if (is_null(static::$_instance)){
             static::$_instance=new Database();
@@ -30,6 +40,12 @@ class Database
         }
     }
 
+    /**
+     * Retrieve data.
+     * @param $query
+     * @return array
+     * @throws Exception
+     */
     private static function query($query)
     {
         $result = static::$_connection->query($query);
@@ -39,6 +55,11 @@ class Database
         return $result->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * Execute statement.
+     * @param $query
+     * @return int
+     */
     private static function exec($query)
     {
         return static::$_connection->exec($query);
