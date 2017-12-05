@@ -17,7 +17,7 @@ include 'Database.php';
 <form action="actions.php" method="POST">
     <input type="hidden" name="action" value="add">
     <label for="message">Message :</label>
-    <input type="text" name="message" id="message">
+    <input type="text" name="message" id="message" required>
     <button type="submit"><i class="fa fa-plus"></i> Ajouter</button>
 </form>
 <hr>
