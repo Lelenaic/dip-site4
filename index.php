@@ -1,5 +1,6 @@
 <?php
-$pdo=new PDO('mysql:dbname=dip_site2;host=localhost', 'root', '');
+ini_set('date.timezone', 'Europe/Paris');
+include 'Database.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,26 +10,49 @@ $pdo=new PDO('mysql:dbname=dip_site2;host=localhost', 'root', '');
     <!-- Fontawesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
           integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<h1>Ajouter une tâche :</h1>
+<form action="actions.php" method="POST">
+    <input type="hidden" name="action" value="add">
+    <label for="message">Message :</label>
+    <input type="text" name="message" id="message">
+    <button type="submit"><i class="fa fa-plus"></i> Ajouter</button>
+</form>
+<hr>
 <h1>Liste des tâches :</h1>
 <?php
-$students=$pdo->query("select id,message,created_at from tasks");
+$tasks = Database::query("select id,message,created_at,done from tasks");
 foreach ($tasks as $task):
-?>
-<hr>
-<h4>Tâche n°<?= $student['id'] ?> :</h4>
-<ul>
-    <li>Nom : <?= $student['firstname'] ?></li>
-    <li>Prénom : <?= $student['lastname'] ?></li>
-    <li>Mail : <?= $student['email'] ?></li>
-    <li>
-        <form action="actions.php">
-            <input type="hidden" name="action" value="delete">
-            <button type="submit"><i class="fa fa-trash"></i></button>
-        </form>
-    </li>
-</ul>
+    $striked=$task['done'] ? ' class="strike-text"':'';
+    ?>
+    <hr>
+    <div<?= $striked ?>>
+        <h4>Tâche n°<?= $task['id'] ?> :</h4>
+        <ul>
+            <li>Message : <?= $task['message'] ?></li>
+            <li>Créée le : <?= date('d/m/Y - H:i', $task['created_at']) ?></li>
+            <li>
+                <form action="actions.php" method="POST">
+                    <input type="hidden" name="action" value="delete">
+                    <input type="hidden" name="id" value="<?= $task['id'] ?>">
+                    <button type="submit"><i class="fa fa-trash"></i> Supprimer</button>
+                </form>
+                <?php
+                if (!$task['done']):
+                    ?>
+                    <form action="actions.php" method="POST">
+                        <input type="hidden" name="action" value="over">
+                        <input type="hidden" name="id" value="<?= $task['id'] ?>">
+                        <button type="submit"><i class="fa fa-check"></i> Terminé</button>
+                    </form>
+                    <?php
+                endif;
+                ?>
+            </li>
+        </ul>
+    </div>
 <?php endforeach; ?>
 <hr>
 </body>
