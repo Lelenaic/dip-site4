@@ -33,9 +33,9 @@ function delete(){
 
 function add()
 {
-    $message = htmlentities($_POST['message']);
+    $message = htmlspecialchars($_POST['message']);
     $createdAt = time();
-    Database::exec('insert into tasks (message, created_at) values (\'' . $message . '\', ' . $createdAt . ')');
+    Database::exec('insert into tasks (message, created_at) values ("' . $message . '", ' . $createdAt . ')');
     header('location: index.php');
     die;
 }

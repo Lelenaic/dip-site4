@@ -3,7 +3,7 @@
 class Database
 {
     const USERNAME = 'root';
-    const PASSWORD = 'root';
+    const PASSWORD = '';
     const DSN = 'mysql:dbname=dip_site4;host=localhost';
 
     private static $_connection;
