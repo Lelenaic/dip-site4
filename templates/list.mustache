@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- Fontawesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+          integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="style.css">
+    <script type="text/javascript">
+
+        function subForm() {
+            var r = new XMLHttpRequest();
+            r.open("POST", "actions.php", true);
+            r.onload = function () {
+                if (r.status !== 200) {
+                    alert('Hum, there was a problem!');
+                } else {
+                    location.reload();
+                }
+            };
+
+            var message = document.getElementById('message').value;
+            var formData = new FormData();
+
+            formData.append("message", message);
+            if (message !== "") {
+                r.send(formData);
+            }
+        }
+
+        function deleteTask(id) {
+            var r = new XMLHttpRequest();
+            r.open("DELETE", "actions.php?id="+id, true);
+            r.onload = function () {
+                if (r.status !== 200) {
+                    alert("Hum, there was a problem!");
+                } else {
+                    location.reload();
+                }
+            };
+
+            if (id !== "") {
+                r.send();
+            }
+        }
+    </script>
+</head>
+<body>
+<!-- Add a task form -->
+<h1>Ajouter une tâche :</h1>
+<form action="actions.php" method="POST">
+    <label for="message">Message :</label>
+    <input type="text" name="message" id="message" required>
+    <button id="addBtn" onclick="subForm()" type="button"><i class="fa fa-plus"></i> Ajouter</button>
+</form>
+<!-- ./Add a task form -->
+<hr>
+<h1>Liste des tâches :</h1>
+{{# tasks}}
+    <hr>
+    <div{{striked}}>
+        <h4>Tâche n°{{id}} :</h4>
+        <ul>
+            <li>Message :{{message}} </li>
+            <li>Créée le : {{created_at}}</li>
+            <li>
+                <!-- Delete button -->
+                <button onclick="deleteTask({{id}})" type="button"><i class="fa fa-trash"></i> Supprimer</button>
+                <!-- ./Delete button -->
+            </li>
+        </ul>
+    </div>
+{{/tasks}}
+<hr>
+</body>
+</html>

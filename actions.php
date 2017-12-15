@@ -1,40 +1,24 @@
 <?php
 include 'Database.php';
-if (!isset($_POST['action'])) die;
 
-
-switch ($_POST['action']) {
-    case 'add':
+switch ($_SERVER['REQUEST_METHOD']) {
+    case 'POST':
         add();
         break;
-    case 'delete':
+    case 'DELETE':
         delete();
         break;
-    case 'over':
-        over();
-        break;
     default:
+        header('HTTP/1.1 400 Bad Request');
         die;
-}
-
-/**
- * Mark a task as finished
- */
-function over(){
-    $id=$_POST['id'];
-    Database::exec('update tasks set done=1 where id='.$id);
-    header('location: index.php');
-    die;
 }
 
 /**
  * Delete a task
  */
 function delete(){
-    $id=$_POST['id'];
+    $id=$_GET['id'] ?? die;
     Database::exec('delete from tasks where id='.$id);
-    header('location: index.php');
-    die;
 }
 
 /**
@@ -45,6 +29,5 @@ function add()
     $message = htmlspecialchars($_POST['message']);
     $createdAt = time();
     Database::exec('insert into tasks (message, created_at) values ("' . $message . '", ' . $createdAt . ')');
-    header('location: index.php');
-    die;
+    echo 'ok';
 }
