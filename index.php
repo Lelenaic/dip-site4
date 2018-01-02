@@ -15,11 +15,11 @@ include 'Database.php';
 <body>
 <!-- Add a task form -->
 <h1>Ajouter une tâche :</h1>
-<form action="actions.php" method="POST">
+<form action="actions.php" method="POST" id="addTask">
     <input type="hidden" name="action" value="add">
     <label for="message">Message :</label>
     <input type="text" name="message" id="message" required>
-    <button type="submit"><i class="fa fa-plus"></i> Ajouter</button>
+    <button type="submit" id="send"><i class="fa fa-plus"></i> Ajouter</button>
 </form>
 <!-- ./Add a task form -->
 <hr>
@@ -61,5 +61,6 @@ foreach ($tasks as $task):
     </div>
 <?php endforeach; ?>
 <hr>
+<script src="assets/app.js"></script>
 </body>
 </html>
