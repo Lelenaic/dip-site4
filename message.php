@@ -19,7 +19,6 @@ $striked = $task->isDone() ? ' class="strike-text"' : '';
         <li>
             <!-- Delete button -->
             <form id="deleteTask">
-                <input type="hidden" name="action" value="delete">
                 <input type="hidden" id="taskId" value="<?= $task->getId() ?>">
                 <button type="submit"><i class="fas fa-trash"></i> Supprimer</button>
             </form>
@@ -28,9 +27,8 @@ $striked = $task->isDone() ? ' class="strike-text"' : '';
             if (!$task->isDone()):
                 ?>
                 <!-- Over button -->
-                <form action="actions.php" method="POST">
-                    <input type="hidden" name="action" value="over">
-                    <input type="hidden" name="id" value="<?= $task->getId() ?>">
+                <form id="overTask">
+                    <input type="hidden" id="taskId" value="<?= $task->getId() ?>">
                     <button type="submit"><i class="fas fa-check"></i> Terminé</button>
                 </form>
                 <!-- ./Over button -->

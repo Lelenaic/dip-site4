@@ -18,7 +18,12 @@ document.addEventListener('submit', (e) => {
         let taskIdToDelete = e.target.querySelector('#taskId').value
         let divToHide = document.getElementById('task' + taskIdToDelete);
         ajax.ajaxDelete('actions.php?id=' + taskIdToDelete).then(() => divToHide.style.display = 'none')
-    }else{
-        console.log(e.target);
+    }else if(e.target && e.target.id==='overTask') {
+        let taskIdToFinish = e.target.querySelector('#taskId').value
+        let divToStrike = document.getElementById('task' + taskIdToFinish);
+        ajax.ajaxPut('actions.php?id='+taskIdToFinish, {}).then(() => {
+            divToStrike.className+=' strike-text'
+            e.target.style.display = 'none'
+        })
     }
 });

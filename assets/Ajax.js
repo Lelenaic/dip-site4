@@ -12,6 +12,10 @@ export default class AjaxRequest {
         return this.ajaxPostPut('POST', url, postData)
     }
 
+    ajaxPut(url, putData){
+        return this.ajaxPostPut('PUT', url, putData)
+    }
+
     ajaxDelete(url){
         return this.ajaxGetDelete('DELETE', url)
     }
