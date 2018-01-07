@@ -1,18 +1,19 @@
 <?php
-include 'Database.php';
-if (!isset($_POST['action'])) die;
 
 
-switch ($_POST['action']) {
-    case 'add':
+use Site4\Database;
+
+require 'vendor/autoload.php';
+
+switch ($_SERVER['REQUEST_METHOD']) {
+    case 'POST':
         add();
         break;
-    case 'delete':
-        delete();
-        break;
-    case 'over':
+    case 'PUT':
         over();
         break;
+    case 'DELETE':
+        delete();
     default:
         die;
 }
@@ -20,21 +21,28 @@ switch ($_POST['action']) {
 /**
  * Mark a task as finished
  */
-function over(){
-    $id=$_POST['id'];
-    Database::exec('update tasks set done=1 where id='.$id);
-    header('location: index.php');
-    die;
+function over()
+{
+    $id = $_GET['id'];
+    $task = \Site4\Task::find($id);
+    if ($task->getId() == 0) {
+        throw new \Exception('Unknown task!');
+    }
+    $task->setDone(true);
+    echo $task->save();
 }
 
 /**
  * Delete a task
  */
-function delete(){
-    $id=$_POST['id'];
-    Database::exec('delete from tasks where id='.$id);
-    header('location: index.php');
-    die;
+function delete()
+{
+    $id = $_GET['id'];
+    $task = \Site4\Task::find($id);
+    if ($task->getId() == 0) {
+        throw new \Exception('Unknown task!');
+    }
+    echo $task->delete();
 }
 
 /**
@@ -44,7 +52,9 @@ function add()
 {
     $message = htmlspecialchars($_POST['message']);
     $createdAt = time();
-    Database::exec('insert into tasks (message, created_at) values ("' . $message . '", ' . $createdAt . ')');
-    header('location: index.php');
-    die;
+    $task = new \Site4\Task();
+    $task->setMessage($message);
+    $task->setCreatedAt($createdAt);
+    $task->save();
+    echo $task->getId();
 }
