@@ -1,0 +1,15 @@
+{
+  "name": "lelenaic/site4",
+  "authors": [
+    {
+      "name": "Lénaïc Grolleau",
+      "email": "lenaic@lenaic.me"
+    }
+  ],
+  "require": {},
+  "autoload": {
+    "psr-4": {
+      "Site4\\": "class"
+    }
+  }
+}
