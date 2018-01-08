@@ -1,3 +1,9 @@
-.strike-text > * {
+body {
+    background: url(bg.png);
+    background-size: 100%;
+    margin-right: 15px;
+}
+
+.strike-text{
     text-decoration: line-through;
 }
