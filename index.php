@@ -15,17 +15,31 @@ require 'vendor/autoload.php';
     <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-<!-- Add a task form -->
-<h1>Ajouter une tâche :</h1>
-<form id="addTask">
-    <input type="hidden" name="action" value="add">
-    <label for="message">Message :</label>
-    <input type="text" name="message" id="message" required>
-    <button type="submit" id="send"><i class="fas fa-plus"></i> Ajouter</button>
-</form>
-<!-- ./Add a task form -->
-<hr>
-<h1>Liste des tâches :</h1>
+<div class="row">
+    <div class="col-lg-4 offset-lg-4 col-sm-12 text-center card">
+        <div class="card-header">
+            <h1>Ajouter une tâche</h1>
+        </div>
+        <div class="card-body">
+            <!-- Add a task form -->
+            <form id="addTask">
+                <div class="form-group">
+                    <label for="message"><b>Message :</b></label>
+                    <input type="text" name="message" id="message" class="form-control" required>
+                </div>
+                <input type="hidden" name="action" value="add">
+                <button type="submit" id="send" class="btn btn-success btn-block"><i class="fas fa-plus"></i> Ajouter
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="row mt-5">
+    <div class="col-lg-4 offset-lg-4 col-sm-12 text-center card">
+        <!-- ./Add a task form -->
+        <h3>Liste des tâches :</h3>
+    </div>
+</div>
 <div id="tasks">
     <?php
     $tasks = \Site4\Task::all();
@@ -34,7 +48,6 @@ require 'vendor/autoload.php';
     }
     ?>
 </div>
-<hr>
 <script type="module" src="assets/app.js"></script>
 </body>
 </html>
