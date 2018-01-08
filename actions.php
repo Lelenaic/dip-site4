@@ -1,8 +1,5 @@
 <?php
 
-
-use Site4\Database;
-
 require 'vendor/autoload.php';
 
 switch ($_SERVER['REQUEST_METHOD']) {
