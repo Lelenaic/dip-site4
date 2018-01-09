@@ -48,6 +48,6 @@ require 'vendor/autoload.php';
     }
     ?>
 </div>
-<script type="module" src="assets/app.js"></script>
+<script src="dist/bundle.js"></script>
 </body>
 </html>

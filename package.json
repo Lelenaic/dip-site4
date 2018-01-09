@@ -1,0 +1,24 @@
+{
+  "name": "site4",
+  "version": "1.0.0",
+  "description": "",
+  "main": "webpack.config.js",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "babel-core": "^6.26.0",
+    "webpack": "^3.10.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lelenaic/dip-site4.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Lelenaic/dip-site4/issues"
+  },
+  "homepage": "https://github.com/Lelenaic/dip-site4#readme"
+}
